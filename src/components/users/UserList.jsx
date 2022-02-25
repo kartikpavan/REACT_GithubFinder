@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from '../layout/Loading';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -30,7 +31,11 @@ function UserList() {
       </div>
     );
   } else {
-    return <h3>Loading .....</h3>;
+    return (
+      <h3>
+        <Loading />
+      </h3>
+    );
   }
 }
 
