@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../layout/Loading';
 import UserItem from './UserItem';
+import { useGlobalContext } from '../../context/github/githubContext';
 
 function UserList() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  //Fetching users FROM github REST API
-  const fetchUsers = async () => {
-    const response = await fetch('https://api.github.com/users', {
-      headers: {
-        Authorization: `token${process.env.REACT_APP_GITHUB_TOKEN}`,
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    setUsers(data);
-    setLoading(false);
-  };
+  const { loading, users, fetchUsers } = useGlobalContext();
 
   useEffect(() => {
     fetchUsers();
