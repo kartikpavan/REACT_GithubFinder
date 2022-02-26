@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-function UserItem({ login, avatar_url, url }) {
+function UserItem({ login, avatar_url }) {
   return (
     <div className="card shadow-md shadow-zinc-900 side bg-zinc-800">
       <div className="flex-row items-center space-x-4 card-body">

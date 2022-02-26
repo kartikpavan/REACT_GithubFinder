@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Loading from '../layout/Loading';
 import UserItem from './UserItem';
 import { useGlobalContext } from '../../context/github/githubContext';
 
 function UserList() {
-  const { loading, users, fetchUsers } = useGlobalContext();
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const { loading, users } = useGlobalContext();
 
   if (!loading) {
     return (
