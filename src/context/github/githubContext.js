@@ -7,6 +7,7 @@ const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
   const defaultState = {
     users: [],
+    user: {},
     loading: false,
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -28,6 +29,23 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: 'FETCH_USERS', payload: items });
   };
 
+  //!Get single User
+  const getUser = async (login) => {
+    setLoading();
+    const response = await fetch(`https://api.github.com/users/${login}`, {
+      headers: {
+        Authorization: `token${GITHUB_TOKEN}`,
+      },
+    });
+    if (response.status === 404) {
+      window.location.href = '/notfound';
+    } else {
+      const data = await response.json();
+
+      dispatch({ type: 'GET_USER', payload: data });
+    }
+  };
+
   //!Clearing Out Users
   const clearUsers = () => {
     dispatch({ type: 'CLEAR_USERS' });
@@ -39,10 +57,12 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        user: state.user,
         users: state.users,
         loading: state.loading,
         fetchUsers,
         clearUsers,
+        getUser,
       }}
     >
       {children}
