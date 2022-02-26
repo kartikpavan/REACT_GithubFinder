@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useGlobalContext } from '../context/github/githubContext';
 import { useParams } from 'react-router-dom';
-import { FaCodepen, FaUserFriends, FaStore, FaUsers } from 'react-icons/fa';
+import { FaCode, FaUserFriends, FaStore, FaUsers } from 'react-icons/fa';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Loading from '../components/layout/Loading';
@@ -47,7 +47,7 @@ function User() {
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 mb-8 md:gap-8">
           <div className="custom-card-image mb-6 md:mb-0">
-            <div className="rounded-lg card image-full">
+            <div className="rounded-lg card shadow-lg image-full">
               <figure>
                 <img className="rounded-lg" src={avatar_url} alt="name" />
               </figure>
@@ -77,6 +77,80 @@ function User() {
                   Visit Github Profile
                 </a>
               </div>
+            </div>
+            <div className="w-full mt-5 rounded-lg shadow-lg bg-base-300 stats">
+              {location && (
+                <div className="stat ">
+                  <div className="stat-title text-md">Location</div>
+                  <div className="text-lg stat-value">{location}</div>
+                </div>
+              )}
+              {blog && (
+                <div className="stat ">
+                  <div className="stat-title text-md">Website</div>
+                  <div className="text-lg stat-value">
+                    <a
+                      href={`https://${blog}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {blog}
+                    </a>
+                  </div>
+                </div>
+              )}
+              {twitter_username && (
+                <div className="stat ">
+                  <div className="stat-title text-md">Twitter</div>
+                  <div className="text-lg stat-value">
+                    <a
+                      href={`https://twitter.com/${twitter_username}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {twitter_username}
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="w-full py-5 mb-6 rounded-lg shadow-md bg-base-300 stats">
+          <div className="stat">
+            <div className="stat-figure text-primary">
+              <FaUsers className="text-3xl md:text-5xl" />
+            </div>
+            <div className="stat-title pr-5 ">Followers</div>
+            <div className="stat-value pr-5 text-3xl md:text-4xl">
+              {followers}
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-primary">
+              <FaUserFriends className="text-3xl md:text-5xl" />
+            </div>
+            <div className="stat-title pr-5 ">Following</div>
+            <div className="stat-value pr-5 text-3xl md:text-4xl">
+              {following}
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-primary">
+              <FaCode className="text-3xl md:text-5xl" />
+            </div>
+            <div className="stat-title pr-5 ">Public Repos</div>
+            <div className="stat-value pr-5 text-3xl md:text-4xl">
+              {public_repos}
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-figure text-primary">
+              <FaStore className="text-3xl md:text-5xl" />
+            </div>
+            <div className="stat-title pr-5 ">Public Gists</div>
+            <div className="stat-value pr-5 text-3xl md:text-4xl">
+              {public_gists}
             </div>
           </div>
         </div>
