@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useGlobalContext } from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/AlertContext';
 
 function UserSearch() {
   const [text, setText] = useState('');
   const { users, fetchUsers, clearUsers } = useGlobalContext();
+  const { setAlert } = useContext(AlertContext);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (text === '') {
-      alert('Please enter a NAME');
+      setAlert('Search field cannot be empty ', 'error');
     } else {
       fetchUsers(text);
       setText('');
