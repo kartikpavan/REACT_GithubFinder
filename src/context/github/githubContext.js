@@ -60,10 +60,11 @@ export const AppProvider = ({ children }) => {
       }
     );
     if (response.status === 404) {
+      console.log(response.status);
+
       window.location.href = '/notfound';
     } else {
       const data = await response.json();
-
       dispatch({ type: 'GET_REPOS', payload: data });
     }
   };
