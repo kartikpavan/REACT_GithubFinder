@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const defaultState = {
     users: [],
     user: {},
+    repos: [],
     loading: false,
   };
   const [state, dispatch] = useReducer(reducer, defaultState);
@@ -46,6 +47,27 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  //!To get users Repos from github
+  const getRepos = async (login) => {
+    setLoading();
+    const params = new URLSearchParams({ sort: 'created', per_page: 10 });
+    const response = await fetch(
+      `https://api.github.com/users/${login}/repos?${params}`,
+      {
+        headers: {
+          Authorization: `token${GITHUB_TOKEN}`,
+        },
+      }
+    );
+    if (response.status === 404) {
+      window.location.href = '/notfound';
+    } else {
+      const data = await response.json();
+
+      dispatch({ type: 'GET_REPOS', payload: data });
+    }
+  };
+
   //!Clearing Out Users
   const clearUsers = () => {
     dispatch({ type: 'CLEAR_USERS' });
@@ -60,9 +82,11 @@ export const AppProvider = ({ children }) => {
         user: state.user,
         users: state.users,
         loading: state.loading,
+        repos: state.repos,
         fetchUsers,
         clearUsers,
         getUser,
+        getRepos,
       }}
     >
       {children}

@@ -5,13 +5,15 @@ import { FaCode, FaUserFriends, FaStore, FaUsers } from 'react-icons/fa';
 import { IoIosArrowRoundBack } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import Loading from '../components/layout/Loading';
+import RepoList from '../components/repos/RepoList';
 
 function User() {
-  const { getUser, user, loading } = useGlobalContext();
+  const { getUser, user, loading, getRepos, repos } = useGlobalContext();
 
   const params = useParams();
   useEffect(() => {
     getUser(params.login);
+    getRepos(params.login);
   }, []);
 
   const {
@@ -154,6 +156,7 @@ function User() {
             </div>
           </div>
         </div>
+        <RepoList repos={repos} />
       </div>
     </>
   );
