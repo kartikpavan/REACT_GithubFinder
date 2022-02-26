@@ -21,7 +21,6 @@ function User() {
     type,
     bio,
     avatar_url,
-    company,
     blog,
     location,
     twitter_username,
@@ -42,7 +41,10 @@ function User() {
     <>
       <div className="w-full mx-auto lg:w-10/12 ">
         <div className="mb-4">
-          <Link to="/" className="btn btn-ghost">
+          <Link
+            to="/"
+            className="btn btn-ghost transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-90 duration-150"
+          >
             <IoIosArrowRoundBack size="30" />
             Back to Search
           </Link>
@@ -74,7 +76,7 @@ function User() {
                   href={html_url}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn btn-outline btn-primary"
+                  className="transition ease-in-out  hover:-translate-y-1 hover:scale-110 duration-300 btn btn-outline hover:btn-primary"
                 >
                   Visit Github Profile
                 </a>
