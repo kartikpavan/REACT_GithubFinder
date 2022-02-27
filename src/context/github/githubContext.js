@@ -25,9 +25,13 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    const { items } = await response.json();
 
-    dispatch({ type: 'FETCH_USERS', payload: items });
+    const { items } = await response.json();
+    if (items.length <= 0) {
+      window.location.href = '/notfound';
+    } else {
+      dispatch({ type: 'FETCH_USERS', payload: items });
+    }
   };
 
   //!Get single User
@@ -38,11 +42,11 @@ export const AppProvider = ({ children }) => {
         Authorization: `token${GITHUB_TOKEN}`,
       },
     });
+    console.log(response);
     if (response.status === 404) {
       window.location.href = '/notfound';
     } else {
       const data = await response.json();
-
       dispatch({ type: 'GET_USER', payload: data });
     }
   };
