@@ -27,6 +27,7 @@ export const AppProvider = ({ children }) => {
     );
 
     const { items } = await response.json();
+    console.log(items);
     if (items.length <= 0) {
       window.location.href = '/notfound';
     } else {
