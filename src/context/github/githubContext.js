@@ -1,6 +1,7 @@
 import React, { useContext, useReducer } from 'react';
 import reducer from './reducer';
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
+const GITHUB_URL = 'https://api.github.com/';
 
 const AppContext = React.createContext();
 
@@ -17,21 +18,17 @@ export const AppProvider = ({ children }) => {
   const fetchUsers = async (text) => {
     setLoading();
     const params = new URLSearchParams({ q: text });
-    const response = await fetch(
-      `https://api.github.com/search/users?${params}`,
-      {
-        headers: {
-          Authorization: `token${GITHUB_TOKEN}`,
-        },
-      }
-    );
+    const response = await fetch(`${GITHUB_URL}search/users?${params}`, {
+      headers: {
+        Authorization: `token${GITHUB_TOKEN}`,
+      },
+    });
 
     const { items } = await response.json();
-    console.log(items);
-    if (items.length <= 0) {
-      window.location.href = '/notfound';
-    } else {
+    if (items.length > 0) {
       dispatch({ type: 'FETCH_USERS', payload: items });
+    } else {
+      window.location.href = '/notfound';
     }
   };
 
@@ -85,10 +82,8 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        user: state.user,
-        users: state.users,
-        loading: state.loading,
-        repos: state.repos,
+        ...state,
+        dispatch,
         fetchUsers,
         clearUsers,
         getUser,
