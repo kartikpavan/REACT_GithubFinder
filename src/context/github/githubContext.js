@@ -23,12 +23,11 @@ export const AppProvider = ({ children }) => {
         Authorization: `token${GITHUB_TOKEN}`,
       },
     });
-
     const { items } = await response.json();
-    if (items.length > 0) {
-      dispatch({ type: 'FETCH_USERS', payload: items });
-    } else {
+    if (response.status === 404) {
       window.location.href = '/notfound';
+    } else {
+      dispatch({ type: 'FETCH_USERS', payload: items });
     }
   };
 
@@ -40,7 +39,7 @@ export const AppProvider = ({ children }) => {
         Authorization: `token${GITHUB_TOKEN}`,
       },
     });
-    console.log(response);
+
     if (response.status === 404) {
       window.location.href = '/notfound';
     } else {
