@@ -1,5 +1,4 @@
-### Live @ https://github-finder-vdkp.netlify.app/
-![Screenshot 2022-02-26 125300](https://user-images.githubusercontent.com/81632171/155834248-31b86f67-8eeb-476f-9f7e-2eeb0cfd6295.jpg)
+### Live @ Vercel
 
 
 ## Available Scripts
