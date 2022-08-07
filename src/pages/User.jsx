@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
-import { useGlobalContext } from '../context/github/githubContext';
-import { useParams } from 'react-router-dom';
-import { FaCode, FaUserFriends, FaStore, FaUsers } from 'react-icons/fa';
-import { IoIosArrowRoundBack } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {useGlobalContext} from '../context/github/githubContext';
+import {Link, useParams} from 'react-router-dom';
+import {FaCode, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa';
+import {IoIosArrowRoundBack} from 'react-icons/io';
 import Loading from '../components/layout/Loading';
 import RepoList from '../components/repos/RepoList';
 
 function User() {
   const { getUser, user, loading, getRepos, repos } = useGlobalContext();
 
-  const params = useParams();
+  const {login:id} = useParams();
   useEffect(() => {
-    getUser(params.login);
-    getRepos(params.login);
+    getUser(id);
+    getRepos(id);
   }, []);
 
   const {
@@ -67,7 +66,7 @@ function User() {
                 {name}
                 <div className="mr-1 ml-2 badge badge-success">{type}</div>
                 {hireable && (
-                  <div className="mx-1 badge badge-info">Hireable</div>
+                  <div className="mx-1 badge badge-info">Hire-able</div>
                 )}
               </h1>
               <p>{bio}</p>
@@ -94,7 +93,7 @@ function User() {
                   <div className="stat-title text-md">Website</div>
                   <div className="text-lg stat-value">
                     <a
-                      href={`https://${blog}`}
+                      href={blog}
                       target="_blank"
                       rel="noreferrer"
                     >
